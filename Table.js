@@ -6,10 +6,28 @@ class Table extends Component {
         super(props);
         this.state = {
             showComponent : false,
+            shown: true,
+            button: "Mark as No Longer Required"
         };
         this.onButtonClick = this.onButtonClick.bind(this);
         this.update = this.update.bind(this);
+        this.handleupdate = this.handleupdate.bind(this);
     }
+
+    handleupdate()  {
+        /*var index = -1;
+        var clength = this.state.details.length;
+        for( var i = 0; i < clength; i++ ) {
+            if( this.state.details[i].Id === rowId.Id ) {
+                index = i;
+                break;
+            }
+        }*/
+        this.setState({
+            shown: false,
+            button: "Marked as No Longer Required"
+        });
+    };
 
     onButtonClick() {
         this.setState({
@@ -21,6 +39,13 @@ class Table extends Component {
         this.props.update(detail);
     }
         render() {
+            var shown = {
+                display: this.state.shown ? "block" : "none"
+            };
+
+            var hidden = {
+                display: this.state.shown ? "none" : "block"
+            }
         const details = this.props.details ;
         return (
 
@@ -30,7 +55,7 @@ class Table extends Component {
                     <thead>
                     <tr>
 
-                        <th>Sno</th>
+
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th>Age</th>
@@ -46,17 +71,18 @@ class Table extends Component {
                         details.map((detail,id) => {
                             return (
                                 <tr key={detail.Id}>
-                                <td>{id+1}</td>
+
                                 <td>{detail.FirstName}</td>
                                 <td>{detail.LastName}</td>
                                 <td>{detail.Age}</td>
                                 <td>{detail.Gender}</td>
                                 <td>{detail.Doj}</td>
-                                    <th><button onClick={this.update}>Update</button>
+                                    <th><button style={shown}>Update</button>
 
                                         </th>
+                                    <th><button  onClick={this.handleupdate}>{this.state.button}</button></th>
 
-                                    <th><button onClick={this.props.handleremove}>Delete</button></th>
+                                    <th><button style={shown} onClick={this.props.handleremove}>Delete</button></th>
 
                             </tr>);
 

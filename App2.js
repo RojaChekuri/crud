@@ -8,6 +8,7 @@ class App2 extends Component {
     constructor(props){
         super(props);
         this.state = {
+
             FirstName: "",
 
             LastName: "",
@@ -42,30 +43,14 @@ class App2 extends Component {
 
         this.edit = this.edit.bind(this);
 
+
     };
 
-    edit(detail)  {
+    edit(e)  {
 
-        let details = this.state.details;
-        for (var i = 0; i<details.length ; i++)
-        {
-            if(details[i].Id == detail.id)
-            {
-                details.splice(i,1);
-            }
-        }
+
         this.setState({
-            FirstName: detail.FirstName,
-
-            LastName: detail.LastName,
-
-            Age: detail.Age,
-
-            Gender: detail.Gender,
-
-            Doj: detail.Doj,
-
-            isEdit : detail.Id,
+            details : e.target.value
         });
     }
 
@@ -80,8 +65,9 @@ class App2 extends Component {
             }
         }
         this.state.details.splice( index, 1 );
-        this.setState( {details: this.state.details} );
+        this.setState( {details: this.state.details});
     };
+
 
     handleSubmit =(e)=> {
         e.preventDefault();
